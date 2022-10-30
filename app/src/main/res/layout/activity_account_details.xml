@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountDetailsActivity">
+    <ImageView
+        android:id="@+id/backtap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/UserName"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="mock name"
+        android:textColor="@color/whatsapp_teal"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/Name"
+        app:layout_constraintTop_toTopOf="@+id/Name" />
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="200dp"
+        android:text="User Name:"
+        android:textColor="@color/zomatoRed"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/UserEmail"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:text="mock email"
+        android:textColor="@color/whatsapp_teal"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/UserName"
+        app:layout_constraintStart_toStartOf="@id/UserName"
+
+        />
+
+    <TextView
+        android:id="@+id/Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Email:"
+        android:textColor="@color/zomatoRed"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/Name"
+        app:layout_constraintTop_toTopOf="@+id/UserEmail" />
+
+    <TextView
+        android:id="@+id/Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Address:"
+        android:textColor="@color/zomatoRed"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/Name"
+        app:layout_constraintTop_toTopOf="@+id/UserAddress" />
+    <TextView
+        android:id="@+id/UserAddress"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:text="mock address"
+        android:textColor="@color/whatsapp_teal"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/UserEmail"
+        app:layout_constraintStart_toStartOf="@id/UserEmail"
+        />
+
+    <TextView
+        android:id="@+id/Phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Phone No:"
+        android:textColor="@color/zomatoRed"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/Name"
+        app:layout_constraintTop_toTopOf="@+id/UserPhone" />
+    <TextView
+        android:id="@+id/UserPhone"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:text="mock phone no"
+        android:textColor="@color/whatsapp_teal"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/UserAddress"
+        app:layout_constraintStart_toStartOf="@id/UserAddress"
+        />
+
+    <TextView
+        android:id="@+id/Upi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Upi Id:"
+        android:textColor="@color/zomatoRed"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/Name"
+        app:layout_constraintTop_toTopOf="@+id/UserUpi" />
+    <TextView
+        android:id="@+id/UserUpi"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:text="mock upi"
+        android:textColor="@color/whatsapp_teal"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/UserPhone"
+        app:layout_constraintStart_toStartOf="@id/UserPhone"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
