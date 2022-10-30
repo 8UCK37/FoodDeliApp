@@ -40,7 +40,7 @@ import java.util.List;
 public class DashNavActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-    ImageView cart,knifespoon,userAcc,tap_here;
+    ImageView cart, menuImg,userAcc;
     TabLayout tabLayout;
     ViewPager viewPager;
     TextView emailshow,nameshow,accDet;
@@ -80,8 +80,8 @@ public class DashNavActivity extends AppCompatActivity {
         }
 
         cart=findViewById(R.id.food_cart);
-        knifespoon=findViewById(R.id.menu);
-        tap_here=findViewById(R.id.tap_here);
+        menuImg =findViewById(R.id.menu);
+
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
 
@@ -131,18 +131,13 @@ public class DashNavActivity extends AppCompatActivity {
                 startActivity(new Intent(DashNavActivity.this, CartActivity.class));
             }
         });
-        knifespoon.setOnClickListener(new View.OnClickListener() {
+        menuImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DashNavActivity.this, FoodListActivity.class));
             }
         });
-        tap_here.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DashNavActivity.this, FoodListActivity.class));
-            }
-        });
+
 
     }
 

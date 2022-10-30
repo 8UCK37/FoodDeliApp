@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.ui.AddSettings.AddingNewAddActivity;
 import com.example.apptest.ui.AddSettings.UpiActivity;
@@ -108,6 +106,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             phn = cursor.getString(3);
         }
-        return phn;
+        return phn+"";
     }
 }
