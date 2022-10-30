@@ -25,7 +25,7 @@ import com.example.apptest.ui.AddSettings.UpiActivity;
 import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.viewmodel.CartViewModel;
 import com.example.apptest.views.CartActivity;
-import com.example.apptest.views.FoodListActivity;
+import com.example.apptest.views.MenuListActivity;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -124,7 +124,7 @@ public class PaymentActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which){
                             dialog.dismiss();
-                            startActivity(new Intent(PaymentActivity.this, FoodListActivity.class));
+                            startActivity(new Intent(PaymentActivity.this, MenuListActivity.class));
                         }
                     });
                     AlertDialog alert=builder.create();

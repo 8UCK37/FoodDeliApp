@@ -23,7 +23,7 @@ import com.example.apptest.ui.Favourites.FavouriteActivity;
 import com.example.apptest.ui.OrderHistory.OrderHIstoryActivity;
 import com.example.apptest.utils.model.FoodItem;
 import com.example.apptest.views.CartActivity;
-import com.example.apptest.views.FoodListActivity;
+import com.example.apptest.views.MenuListActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -134,7 +134,7 @@ public class DashNavActivity extends AppCompatActivity {
         menuImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DashNavActivity.this, FoodListActivity.class));
+                startActivity(new Intent(DashNavActivity.this, MenuListActivity.class));
             }
         });
 

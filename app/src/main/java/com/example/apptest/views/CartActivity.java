@@ -40,7 +40,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, FoodListActivity.class));
+                startActivity(new Intent(CartActivity.this, MenuListActivity.class));
             }
         });
         cartViewModel.getAllCartItems().observe(this, new Observer<List<FoodCart>>() {

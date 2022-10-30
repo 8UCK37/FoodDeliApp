@@ -86,7 +86,7 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".views.FoodListActivity"
+            android:name=".views.MenuListActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:screenOrientation="portrait"/>

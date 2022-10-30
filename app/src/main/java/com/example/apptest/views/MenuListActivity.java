@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class FoodListActivity extends AppCompatActivity implements FoodItemAdapter.FoodClickedListeners {
+public class MenuListActivity extends AppCompatActivity implements FoodItemAdapter.FoodClickedListeners {
 
     private RecyclerView recyclerView;
     protected List<FoodItem> foodItemList;
@@ -72,14 +72,14 @@ public class FoodListActivity extends AppCompatActivity implements FoodItemAdapt
         cartImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FoodListActivity.this, CartActivity.class));
+                startActivity(new Intent(MenuListActivity.this, CartActivity.class));
             }
         });
         favImgView=findViewById(R.id.favtap);
         favImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FoodListActivity.this, FavouriteActivity.class));
+                startActivity(new Intent(MenuListActivity.this, FavouriteActivity.class));
             }
         });
         backtap=findViewById(R.id.backtap);
@@ -87,7 +87,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodItemAdapt
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(FoodListActivity.this, DashNavActivity.class));
+                startActivity(new Intent(MenuListActivity.this, DashNavActivity.class));
             }
         });
     }
@@ -156,7 +156,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodItemAdapt
     @Override
     public void onCardClicked(FoodItem foodItem) {
 
-        Intent intent = new Intent(FoodListActivity.this, DetailedActivity.class);
+        Intent intent = new Intent(MenuListActivity.this, DetailedActivity.class);
         intent.putExtra("foodItem", foodItem);
         startActivity(intent);
 
@@ -226,7 +226,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodItemAdapt
                 .setAction("Go to Cart", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(FoodListActivity.this, CartActivity.class));
+                        startActivity(new Intent(MenuListActivity.this, CartActivity.class));
                     }
                 }).show();
     }
