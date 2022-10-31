@@ -49,6 +49,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         db=new DbHelper(this);
         searchView = findViewById(R.id.food_search);
         searchView.clearFocus();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -118,7 +119,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                }
         }
         if(filteredList.isEmpty()){
-            Toast.makeText(getApplicationContext(),"No Match Found",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"No Match Found",Toast.LENGTH_SHORT).show();
         }else{
                 adapter.setFilteredList(filteredList);
         }
