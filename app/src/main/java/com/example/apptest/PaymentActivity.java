@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.ui.AddSettings.AddingNewAddActivity;
 import com.example.apptest.ui.AddSettings.UpiActivity;
+import com.example.apptest.ui.OrderHistory.OrderHIstoryActivity;
 import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.viewmodel.CartViewModel;
 import com.example.apptest.views.CartActivity;
@@ -124,7 +125,7 @@ public class PaymentActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which){
                             dialog.dismiss();
-                            startActivity(new Intent(PaymentActivity.this, MenuListActivity.class));
+                            startActivity(new Intent(PaymentActivity.this, OrderHIstoryActivity.class));
                         }
                     });
                     AlertDialog alert=builder.create();
