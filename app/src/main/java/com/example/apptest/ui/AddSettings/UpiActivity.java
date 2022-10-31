@@ -14,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.apptest.DashNavActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
+import com.example.apptest.views.CartActivity;
+import com.example.apptest.views.MenuListActivity;
 
 public class UpiActivity extends AppCompatActivity {
     private EditText upiEdit,phnEdit;
     private TextView  add;
-    private ImageView back, dltUpi,dltPhn;
+    private ImageView back,cart, dltUpi,dltPhn;
     private String upi_placeholder,phn;
     DbHelper db;
     @Override
@@ -51,6 +53,14 @@ public class UpiActivity extends AppCompatActivity {
                 startActivity(new Intent(UpiActivity.this, DashNavActivity.class));
             }
         });
+        cart=findViewById(R.id.cart);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UpiActivity.this, CartActivity.class));
+            }
+        });
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +79,7 @@ public class UpiActivity extends AppCompatActivity {
                     }
                 }
                 finish(); startActivity(getIntent());//refreshes the activity leaving nothing behind
+
             }
         });
         dltUpi =findViewById(R.id.UpiDeleteBtn);

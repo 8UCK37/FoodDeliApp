@@ -13,10 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.apptest.DashNavActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
+import com.example.apptest.views.CartActivity;
 
 
 public class AddSettingsActivity extends AppCompatActivity {
-    private ImageView back,plus,dlt;
+    private ImageView back,cart,plus,dlt;
     private  TextView add,add_add;
     private String addstring="We don't have your address yet!!";
     DbHelper db;
@@ -38,6 +39,13 @@ public class AddSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AddSettingsActivity.this, DashNavActivity.class));
+            }
+        });
+        cart=findViewById(R.id.cart);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddSettingsActivity.this, CartActivity.class));
             }
         });
         plus=findViewById(R.id.addnew);
