@@ -125,7 +125,7 @@ public class PaymentActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which){
                             dialog.dismiss();
-                            startActivity(new Intent(PaymentActivity.this, OrderHIstoryActivity.class));
+                            startActivity(new Intent(PaymentActivity.this, MenuListActivity.class));
                         }
                     });
                     AlertDialog alert=builder.create();
