@@ -196,7 +196,7 @@ public class DashNavActivity extends AppCompatActivity {
         return true;
     }
     private void setUpList() {
-        foodItemList.add(new FoodItem("Kolkata Dum Biriyani", "Restaurant5", R.drawable.biriyani, 150,"Authentic kolkata style Dum-Biriyani"));
+        foodItemList.add(new FoodItem("Chicken Dum Biriyani ", "Restaurant5", R.drawable.biriyani, 150,"Authentic kolkata style Dum-Biriyani"));
         foodItemList.add(new FoodItem("Momo", "Restaurant3", R.drawable.momo, 100,"Steamed Momo"));
         foodItemList.add(new FoodItem("Pizza", "Restaurant1", R.drawable.pizza, 350,"Pizza with Mozzarella cheese and salami toppings"));
         foodItemList.add(new FoodItem("Chicken Kathi Roll", "Restaurant4", R.drawable.chicken_kathi_roll, 85,"Roll with Check Kathi Kebab as Fillings"));
