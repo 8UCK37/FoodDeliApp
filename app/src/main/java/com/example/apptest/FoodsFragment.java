@@ -19,10 +19,10 @@ public class FoodsFragment extends Fragment {
 
     RecyclerView recyclerView;
     FoodAdapter foodAdapter;
-    List<FoodItem> foodItemList;
+    List<FoodItem> List;
 
     public FoodsFragment(List<FoodItem> f) {
-        this.foodItemList=f;
+        this.List=f;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class FoodsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_foods, container, false);
 
         recyclerView = view.findViewById(R.id.food_recycler);
-        foodAdapter = new FoodAdapter(foodItemList, getActivity().getApplicationContext());
+        foodAdapter = new FoodAdapter(List, getActivity().getApplicationContext());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);

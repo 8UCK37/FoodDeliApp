@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptest.DashNavActivity;
+import com.example.apptest.LoginActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.ui.Favourites.FavouriteActivity;
@@ -99,7 +100,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         });
     }
     private void setUpList() {
-        for(int i=1;i<=DashNavActivity.foodNo;i++) {
+        for(int i = 1; i<= DashNavActivity.foodNo; i++) {
             Cursor cursor = db.getFoodData(String.valueOf(i));
             String org = "null";
             String name = "null";

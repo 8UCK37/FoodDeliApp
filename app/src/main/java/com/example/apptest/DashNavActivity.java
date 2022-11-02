@@ -67,7 +67,6 @@ public class DashNavActivity extends AppCompatActivity {
         chinese = new ArrayList<>();
         snacks = new ArrayList<>();
         setUpList();
-        setupListBytype();
         try {
             setUpFoodDb();
         } catch (Exception e) {
@@ -144,7 +143,7 @@ public class DashNavActivity extends AppCompatActivity {
                 startActivity(new Intent(DashNavActivity.this, MenuListActivity.class));
             }
         });
-
+        setupListByType();
 
     }
 
@@ -226,16 +225,25 @@ public class DashNavActivity extends AppCompatActivity {
         int id=0;
         for( FoodItem i : foodItemList){
             id++;
+            if(i.getType().equals("i")){
+                indian.add(new FoodItem(i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),i.getFoodPrice(),i.getFoodDesc(),i.getType()));
+            }
+            else if(i.getType().equals("c")){
+                chinese.add(new FoodItem(i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),i.getFoodPrice(),i.getFoodDesc(),i.getType()));
+            }else if(i.getType().equals("s")){
+                snacks.add(new FoodItem(i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),i.getFoodPrice(),i.getFoodDesc(),i.getType()));
+            }
             Boolean checkFoodInsertData=db.insertFoodData(String.valueOf(id),i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),String.valueOf(i.getFoodPrice()),i.getFoodDesc(),i.getType());
             if(checkFoodInsertData){
                 continue;
             }else{
                 throw new Exception("FoodItemTable Insert Error for i= "+id);
             }
+
         }
         foodNo = id;
     }
-    private void setupListBytype(){
+    private void setupListByType(){
         Cursor Indcursor = db.getFoodDataByType("i");
         while (Indcursor.moveToNext()) {
              indian.add(new FoodItem(Indcursor.getString(1),Indcursor.getString(2),Indcursor.getInt(3),Indcursor.getDouble(4),Indcursor.getString(5),Indcursor.getString(6)));
