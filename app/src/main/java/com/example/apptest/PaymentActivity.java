@@ -3,26 +3,38 @@ package com.example.apptest;
 import static com.example.apptest.views.CartActivity.cartAdapter;
 import static com.example.apptest.views.CartActivity.cartTotal;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.ui.AddSettings.AddingNewAddActivity;
 import com.example.apptest.ui.AddSettings.UpiActivity;
-import com.example.apptest.ui.OrderHistory.OrderHIstoryActivity;
 import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.viewmodel.CartViewModel;
 import com.example.apptest.views.CartActivity;
@@ -33,18 +45,22 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity implements LocationListener {
     private CartViewModel cartViewModel;
-    private ImageView backtap;
+    private ImageView backtap,gps;
     private CheckBox check;
-    private TextView upi_id_show,address_show,price_show,confirm,test;
-    private String upi_flag="",add_flag="",order_placed_flag="";
+    private TextView upi_id_show,address_show,price_show,confirm, gpsLocShow;
+    private String upi_flag="",add_flag="",order_placed_flag="",addressChkFlag="";
     public static ArrayList<FoodCart> order;
     public static String OrderPackage,randTime;
+    private int checked;
+    LocationManager locationManager;
+    RadioGroup radioGroup;
     DbHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +118,7 @@ public class PaymentActivity extends AppCompatActivity {
                 if(order_placed_flag.equals("prevOrder")){
                     Toast.makeText(getApplicationContext(),"Are you sure you want to place the same order again?",Toast.LENGTH_SHORT).show();
                 }else{
-                if(check.isChecked() && upi_flag.equals("present") && add_flag.equals("present")){
+                if((check.isChecked() && upi_flag.equals("present") && add_flag.equals("present"))||(check.isChecked() && upi_flag.equals("present") && addressChkFlag.equals("new"))){
                     CartActivity.cartViewModel.deleteAllCartItems();
                     OrderPackage = String.valueOf(order);
                     String orderid = UUID.randomUUID().toString();
@@ -162,9 +178,44 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
+        radioGroup=findViewById(R.id.radio);
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkID) {
+                checked=radioGroup.indexOfChild(findViewById(checkID));
 
+                switch(checked){
+                    case 0:
+                        addressChkFlag="saved";
+                        //Toast.makeText(getApplicationContext(),addressChkFlag,Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        addressChkFlag="new";
+                        //Toast.makeText(getApplicationContext(),addressChkFlag,Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
+        gps=findViewById(R.id.findLoc);
+        gpsLocShow =findViewById(R.id.gps_location);
+        if (ContextCompat.checkSelfPermission(PaymentActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(PaymentActivity.this,new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            },100);
+        }
+        gpsLocShow.setText("Press on the button to get your location automatically");
+        gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Finding your location please wait",Toast.LENGTH_SHORT).show();
+                getLocation();
+            }
+        });
     }
     private String getUPIData() {
         Cursor cursor = db.getAddTableData(DashNavActivity.userEmail);
@@ -208,5 +259,47 @@ public class PaymentActivity extends AppCompatActivity {
         int time=timeList.get(random.nextInt(5));
         return String.valueOf(time);
     }
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
 
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,PaymentActivity.this);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        try {
+            Geocoder geocoder = new Geocoder(PaymentActivity.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+            String address = addresses.get(0).getAddressLine(0);
+
+            gpsLocShow.setText(address);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
