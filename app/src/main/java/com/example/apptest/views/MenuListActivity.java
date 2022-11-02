@@ -1,6 +1,8 @@
 package com.example.apptest.views;
 
 
+
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -17,9 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.apptest.DashNavActivity;
-import com.example.apptest.LoginActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.ui.Favourites.FavouriteActivity;
@@ -28,7 +27,6 @@ import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.utils.model.FoodItem;
 import com.example.apptest.viewmodel.CartViewModel;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -66,7 +64,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                 return true;
             }
         });
-        count=getCountData();
+
         initializeVariables();
         setUpList();
 
@@ -82,6 +80,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
             }
         });
         itemCount=findViewById(R.id.cartCount);
+        count=getCountData();
         itemCount.setText(String.valueOf(count));
         favImgView=findViewById(R.id.favtap);
         favImgView.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +97,8 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                 startActivity(new Intent(MenuListActivity.this, DashNavActivity.class));
             }
         });
+
+        itemCount.setText(String.valueOf(count));
     }
     private void setUpList() {
         for(int i = 1; i<= DashNavActivity.foodNo; i++) {
@@ -141,7 +142,9 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
             public void onChanged(List<FoodCart> foodCarts) {
                 foodCartList.addAll(foodCarts);
             }
+
         });
+        itemCount.setText(String.valueOf(String.valueOf(getCountData())));
     }
 
 
@@ -251,10 +254,11 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
     }
     private int getCountData() {
         Cursor cursor = db.getCountdata(DashNavActivity.userEmail);
-        int count = 0;
+
         while (cursor.moveToNext()) {
             count = cursor.getInt(4);
         }
         return count;
     }
+
 }
