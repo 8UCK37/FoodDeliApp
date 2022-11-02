@@ -88,7 +88,7 @@ public class FavouriteActivity extends AppCompatActivity implements FoodItemAdap
                 int image=Integer.valueOf(cursor.getString(3));
                 double price=Double.valueOf(cursor.getString(4));
                 String description=cursor.getString(5);
-                foodItemList.add(new FoodItem(foodName, resName, image, price,description));
+                foodItemList.add(new FoodItem(foodName, resName, image, price,description,"type"));
 
             }
         }

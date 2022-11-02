@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,9 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
     private FoodItemAdapter adapter;
     private CartViewModel viewModel;
     private List<FoodCart> foodCartList;
+    private TextView itemCount;
     private CoordinatorLayout coordinatorLayout;
+    private static int count=0;
     private ImageView cartImageView,favImgView,backtap;
     private SearchView searchView;
     DbHelper db;
@@ -62,7 +65,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                 return true;
             }
         });
-
+        count=getCountData();
         initializeVariables();
         setUpList();
 
@@ -73,9 +76,12 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         cartImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), String.valueOf(count), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MenuListActivity.this, CartActivity.class));
             }
         });
+        itemCount=findViewById(R.id.cartCount);
+        itemCount.setText(String.valueOf(count));
         favImgView=findViewById(R.id.favtap);
         favImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +113,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                 price = cursor.getString(4);
                 desc = cursor.getString(5);
             }
-            foodItemList.add(new FoodItem(name, org, img, Double.valueOf(price), desc));
+            foodItemList.add(new FoodItem(name, org, img, Double.valueOf(price), desc,"type"));
         }
     }
 
@@ -165,6 +171,9 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
 
     @Override
     public void onAddToCartBtnClicked(FoodItem foodItem) {
+        count++;
+        setCount(count);
+        itemCount.setText(String.valueOf(count));
         FoodCart foodCart = new FoodCart();
         foodCart.setFoodName(foodItem.getFoodName());
         foodCart.setFoodBrandName(foodItem.getFoodBrandName());
@@ -211,7 +220,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
             Toast.makeText(getApplicationContext(), "empty insertion", Toast.LENGTH_SHORT).show();
         }else {
             Boolean checkInsertData = db.insertFavData(userEmailTXT,foodnameTXT,resNameTXT,imageInt,priceTXT,descTXT);
-            ;                        if (checkInsertData == true) {
+            if (checkInsertData == true) {
                 Toast.makeText(getApplicationContext(), "Added to Favourite", Toast.LENGTH_SHORT).show();
 
 
@@ -230,5 +239,21 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                         startActivity(new Intent(MenuListActivity.this, CartActivity.class));
                     }
                 }).show();
+    }
+    public void setCount(int i)  {
+        Boolean checkUp=db.updateCount(DashNavActivity.userEmail,i);
+        if(!checkUp){
+            Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+    private int getCountData() {
+        Cursor cursor = db.getCountdata(DashNavActivity.userEmail);
+        int count = 0;
+        while (cursor.moveToNext()) {
+            count = cursor.getInt(4);
+        }
+        return count;
     }
 }

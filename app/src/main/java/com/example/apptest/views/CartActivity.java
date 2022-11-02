@@ -13,8 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apptest.DashNavActivity;
 import com.example.apptest.PaymentActivity;
 import com.example.apptest.R;
+import com.example.apptest.database.DbHelper;
 import com.example.apptest.utils.adapter.CartAdapter;
 import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.viewmodel.CartViewModel;
@@ -29,13 +31,15 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
     public static CartAdapter cartAdapter;
     public static Double cartTotal;
     private ImageView back;
-
+    private static int count=0;
+    static DbHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
         initializeVariables();
+        db=new DbHelper(this);
         back= findViewById(R.id.backtap);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,8 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
             @Override
             public void onChanged(List<FoodCart> foodCarts) {
                 double price = 0;
+                count=foodCarts.size();
+                setCount(count);
                 cartAdapter.setFoodCartList(foodCarts);
                 for (int i=0;i<foodCarts.size();i++){
                     price = price + foodCarts.get(i).getTotalItemPrice();
@@ -108,6 +114,14 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
             cartAdapter.notifyDataSetChanged();
         }else{
             cartViewModel.deleteCartItem(foodCart);
+        }
+
+    }
+    public void setCount(int i)  {
+        Boolean checkUp=db.updateCount(DashNavActivity.userEmail,i);
+        if(!checkUp){
+            Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
+
         }
 
     }

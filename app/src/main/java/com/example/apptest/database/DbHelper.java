@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     // Database Name
     private static final String DATABASE_NAME = "UserAccDetails";
@@ -23,8 +23,8 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create Table Userfavs(email TXT ,foodname TXT primary key,resName TXT, img int, price TXT,description TXT )");
-        db.execSQL("create Table UserDetails(email TXT primary key ,address TXT,upiId TXT,phn TXT )");
-        db.execSQL("create Table FoodItems(id TXT primary key,foodname TXT ,resName TXT, img int, price TXT,description TXT )");
+        db.execSQL("create Table UserDetails(email TXT primary key ,address TXT,upiId TXT,phn TXT,count int )");
+        db.execSQL("create Table FoodItems(id TXT primary key,foodname TXT ,resName TXT, img int, price TXT,description TXT,type TXT )");
         db.execSQL("create Table OrderHis(email TXT ,orderid TXT ,foodName TXT,resName TXT, img int, price TXT,quantity TXT,time TXT )");
     }
 
@@ -223,7 +223,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("Select * from OrderHis where email=?", new String[]{email});
         return cursor;
     }
-    public Boolean insertFoodData(String id,String foodname,String resName,int img,String price,String description)
+    public Boolean insertFoodData(String id,String foodname,String resName,int img,String price,String description,String type)
     {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor=DB.rawQuery("Select * from FoodItems where id = ?", new String[]{id});
@@ -235,6 +235,7 @@ public class DbHelper extends SQLiteOpenHelper {
         contentValues.put("img",img );
         contentValues.put("price",price );
         contentValues.put("description",description );
+        contentValues.put("type",type);
 
             long result = DB.update("FoodItems",contentValues,"id=?", new String[]{id});
         if(result==-1){
@@ -286,6 +287,29 @@ public class DbHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from FoodItems where id=?", new String[]{id});
+        return cursor;
+    }
+    public Cursor getFoodDataByType(String type)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from FoodItems where type=?", new String[]{type});
+        return cursor;
+    }
+    public boolean updateCount(String email,int count){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("count", count);
+        long result = DB.update("UserDetails",contentValues,"email=?", new String[]{email});
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public Cursor getCountdata(String id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from UserDetails where email=?", new String[]{id});
         return cursor;
     }
 }

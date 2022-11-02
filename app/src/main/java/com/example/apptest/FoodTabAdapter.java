@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class FoodCardAdapter extends FragmentPagerAdapter {
+public class FoodTabAdapter extends FragmentPagerAdapter {
 
     int tabCounts;
 
-    public FoodCardAdapter(@NonNull FragmentManager fm, int tabCounts) {
+    public FoodTabAdapter(@NonNull FragmentManager fm, int tabCounts) {
         super(fm);
         this.tabCounts = tabCounts;
     }
@@ -19,11 +19,11 @@ public class FoodCardAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FoodsFragment();
+                return new FoodsFragment(DashNavActivity.indian);
             case 1:
-                return new FoodsFragment();
+                return new FoodsFragment(DashNavActivity.chinese);
             case 2:
-                return new FoodsFragment();
+                return new FoodsFragment(DashNavActivity.snacks);
             default:
                 return null;
         }

@@ -16,7 +16,7 @@ import com.example.apptest.utils.model.FoodItem;
 
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
+public class  FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
     private FoodItem food;
     List<FoodItem> list;
     Context context;

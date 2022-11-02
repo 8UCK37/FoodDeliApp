@@ -1,6 +1,7 @@
 package com.example.apptest;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -48,6 +49,9 @@ public class DashNavActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityDashNavBinding binding;
     protected static List<FoodItem> foodItemList;
+    protected static List<FoodItem> indian;
+    protected static List<FoodItem> chinese;
+    protected static List<FoodItem> snacks;
     public static int foodNo;
     DbHelper db;
 
@@ -55,12 +59,15 @@ public class DashNavActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityDashNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         db=new DbHelper(this);
         foodItemList = new ArrayList<>();
+        indian = new ArrayList<>();
+        chinese = new ArrayList<>();
+        snacks = new ArrayList<>();
         setUpList();
+        setupListBytype();
         try {
             setUpFoodDb();
         } catch (Exception e) {
@@ -85,12 +92,12 @@ public class DashNavActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.food_tab);
         viewPager = findViewById(R.id.food_viewpager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Featured1"));     //0
-        tabLayout.addTab(tabLayout.newTab().setText("Featured2"));    //1
-        tabLayout.addTab(tabLayout.newTab().setText("Featured3"));   //2
+        tabLayout.addTab(tabLayout.newTab().setText("Indian"));      //0
+        tabLayout.addTab(tabLayout.newTab().setText("Chinese"));    //1
+        tabLayout.addTab(tabLayout.newTab().setText("Snacks"));    //2
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final FoodCardAdapter adapter = new FoodCardAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final FoodTabAdapter adapter = new FoodTabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -196,30 +203,30 @@ public class DashNavActivity extends AppCompatActivity {
         return true;
     }
     private void setUpList() {
-        foodItemList.add(new FoodItem("Chicken Dum Biriyani ", "Restaurant5", R.drawable.biriyani, 150,"Authentic kolkata style Dum-Biriyani"));
-        foodItemList.add(new FoodItem("Momo", "Restaurant3", R.drawable.momo, 100,"Steamed Momo"));
-        foodItemList.add(new FoodItem("Pizza", "Restaurant1", R.drawable.pizza, 350,"Pizza with Mozzarella cheese and salami toppings"));
-        foodItemList.add(new FoodItem("Chicken Kathi Roll", "Restaurant4", R.drawable.chicken_kathi_roll, 85,"Roll with Check Kathi Kebab as Fillings"));
-        foodItemList.add(new FoodItem("Fried Rice", "Restaurant4", R.drawable.friedrice, 120,"Indian style Fried Rice/Pulao"));
-        foodItemList.add(new FoodItem("Chicken Kebab", "Restaurant2", R.drawable.chicken_kebab, 220,"Grilled Chicken Kebab"));
-        foodItemList.add(new FoodItem("Chilli Chicken", "Restaurant3", R.drawable.chilli_chicken, 120,"Semi gravy Chilli Chicken"));
-        foodItemList.add(new FoodItem("Hakka Noodles", "Restaurant5", R.drawable.hakka_noodles, 150,"Veg/mixed hakka noodles"));
-        foodItemList.add(new FoodItem("Burger", "Restaurant3", R.drawable.burger, 90,"Chicken Burger"));
-        foodItemList.add(new FoodItem("Mutton Chaap", "Restaurant5", R.drawable.mutton_chaap, 220,"Mutton Chaap"));
-        foodItemList.add(new FoodItem("Tandoori Chicken", "Restaurant4", R.drawable.tandoori_chicken, 250,"Chicken Tandoori"));
-        foodItemList.add(new FoodItem("Fish Cutlet", "Restaurant3", R.drawable.fish_cutlet, 120,"Fish Cutlet"));
-        foodItemList.add(new FoodItem("Masala Dosa", "Restaurant1", R.drawable.masala_dosa, 95,"Masala Dosa"));
-        foodItemList.add(new FoodItem("Chicken Spring Roll", "Restaurant2", R.drawable.spring_roll, 65,"Chicken Spring Roll"));
-        foodItemList.add(new FoodItem("Chicken Shawarma", "Restaurant1", R.drawable.chicken_shawarma, 95,"Chicken Shawarma"));
-        foodItemList.add(new FoodItem("Chicken Sandwich", "Restaurant2", R.drawable.chicken_sandwich, 55,"Chicken Sandwich"));
-        foodItemList.add(new FoodItem("Italian Pasta", "Restaurant6", R.drawable.pasta, 120,"Authentic Italian Style Pasta with mariana pasta sauce and Parmesan cheese"));
-        foodItemList.add(new FoodItem("White sauce Pasta", "Restaurant6", R.drawable.white_sauce_pasta, 120,"Authentic Italian Style Pasta with Bechamel sauce and Parmesan cheese"));
+        foodItemList.add(new FoodItem("Chicken Dum Biriyani ", "Restaurant5", R.drawable.biriyani, 150,"Authentic kolkata style Dum-Biriyani","i"));
+        foodItemList.add(new FoodItem("Momo", "Restaurant3", R.drawable.momo, 100,"Steamed Momo","c"));
+        foodItemList.add(new FoodItem("Pizza", "Restaurant1", R.drawable.pizza, 350,"Pizza with Mozzarella cheese and salami toppings","s"));
+        foodItemList.add(new FoodItem("Chicken Kathi Roll", "Restaurant4", R.drawable.chicken_kathi_roll, 85,"Roll with Check Kathi Kebab as Fillings","s"));
+        foodItemList.add(new FoodItem("Fried Rice", "Restaurant4", R.drawable.friedrice, 120,"Indian style Fried Rice/Pulao","c"));
+        foodItemList.add(new FoodItem("Chicken Kebab", "Restaurant2", R.drawable.chicken_kebab, 220,"Grilled Chicken Kebab","i"));
+        foodItemList.add(new FoodItem("Chilli Chicken", "Restaurant3", R.drawable.chilli_chicken, 120,"Semi gravy Chilli Chicken","c"));
+        foodItemList.add(new FoodItem("Hakka Noodles", "Restaurant5", R.drawable.hakka_noodles, 150,"Veg/mixed hakka noodles","c"));
+        foodItemList.add(new FoodItem("Burger", "Restaurant3", R.drawable.burger, 90,"Chicken Burger","s"));
+        foodItemList.add(new FoodItem("Mutton Chaap", "Restaurant5", R.drawable.mutton_chaap, 220,"Mutton Chaap","i"));
+        foodItemList.add(new FoodItem("Tandoori Chicken", "Restaurant4", R.drawable.tandoori_chicken, 250,"Chicken Tandoori","i"));
+        foodItemList.add(new FoodItem("Fish Cutlet", "Restaurant3", R.drawable.fish_cutlet, 120,"Fish Cutlet","s"));
+        foodItemList.add(new FoodItem("Masala Dosa", "Restaurant1", R.drawable.masala_dosa, 95,"Masala Dosa","i"));
+        foodItemList.add(new FoodItem("Chicken Spring Roll", "Restaurant2", R.drawable.spring_roll, 65,"Chicken Spring Roll","s"));
+        foodItemList.add(new FoodItem("Chicken Shawarma", "Restaurant1", R.drawable.chicken_shawarma, 95,"Chicken Shawarma","s"));
+        foodItemList.add(new FoodItem("Chicken Sandwich", "Restaurant2", R.drawable.chicken_sandwich, 55,"Chicken Sandwich","s"));
+        foodItemList.add(new FoodItem("Italian Pasta", "Restaurant6", R.drawable.pasta, 120,"Authentic Italian Style Pasta with mariana pasta sauce and Parmesan cheese","s"));
+        foodItemList.add(new FoodItem("White sauce Pasta", "Restaurant6", R.drawable.white_sauce_pasta, 120,"Authentic Italian Style Pasta with Bechamel sauce and Parmesan cheese","s"));
     }
     private void setUpFoodDb() throws Exception {
         int id=0;
         for( FoodItem i : foodItemList){
             id++;
-            Boolean checkFoodInsertData=db.insertFoodData(String.valueOf(id),i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),String.valueOf(i.getFoodPrice()),i.getFoodDesc());
+            Boolean checkFoodInsertData=db.insertFoodData(String.valueOf(id),i.getFoodName(),i.getFoodBrandName(),i.getFoodImage(),String.valueOf(i.getFoodPrice()),i.getFoodDesc(),i.getType());
             if(checkFoodInsertData){
                 continue;
             }else{
@@ -227,6 +234,20 @@ public class DashNavActivity extends AppCompatActivity {
             }
         }
         foodNo = id;
+    }
+    private void setupListBytype(){
+        Cursor Indcursor = db.getFoodDataByType("i");
+        while (Indcursor.moveToNext()) {
+             indian.add(new FoodItem(Indcursor.getString(1),Indcursor.getString(2),Indcursor.getInt(3),Indcursor.getDouble(4),Indcursor.getString(5),Indcursor.getString(6)));
+        }
+        Cursor chnCursor = db.getFoodDataByType("c");
+        while (chnCursor.moveToNext()) {
+            chinese.add(new FoodItem(chnCursor.getString(1),chnCursor.getString(2),chnCursor.getInt(3),chnCursor.getDouble(4),chnCursor.getString(5),chnCursor.getString(6)));
+        }
+        Cursor snacksCursor = db.getFoodDataByType("s");
+        while (snacksCursor.moveToNext()) {
+            snacks.add(new FoodItem(snacksCursor.getString(1),snacksCursor.getString(2),snacksCursor.getInt(3),snacksCursor.getDouble(4),snacksCursor.getString(5),snacksCursor.getString(6)));
+        }
     }
     @Override
     public boolean onSupportNavigateUp() {

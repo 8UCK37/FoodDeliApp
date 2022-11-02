@@ -12,16 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptest.utils.model.FoodItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodsFragment extends Fragment {
 
     RecyclerView recyclerView;
     FoodAdapter foodAdapter;
-    List<FoodItem> foodItemList=DashNavActivity.foodItemList;
+    List<FoodItem> foodItemList;
 
-    public FoodsFragment() {
-        // Required empty public constructor
+    public FoodsFragment(List<FoodItem> f) {
+        this.foodItemList=f;
     }
 
     @Override

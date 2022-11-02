@@ -6,16 +6,17 @@ import android.os.Parcelable;
 public class FoodItem implements Parcelable {
 
 
-    private String foodName, foodBrandName,foodDesc;
+    private String foodName, foodBrandName,foodDesc,type;
     private int foodImage;
     private double foodPrice;
 
-    public FoodItem(String foodName, String foodBrandName, int foodImage, double foodPrice,String foodDesc) {
+    public FoodItem(String foodName, String foodBrandName, int foodImage, double foodPrice,String foodDesc,String type) {
         this.foodName = foodName;
         this.foodBrandName = foodBrandName;
         this.foodImage = foodImage;
         this.foodPrice = foodPrice;
         this.foodDesc = foodDesc;
+        this.type = type;
     }
 
     protected FoodItem(Parcel in) {
@@ -24,6 +25,7 @@ public class FoodItem implements Parcelable {
         foodImage = in.readInt();
         foodPrice = in.readDouble();
         foodDesc = in.readString();
+        type= in.readString();
     }
 
     public static final Creator<FoodItem> CREATOR = new Creator<FoodItem>() {
@@ -71,6 +73,14 @@ public class FoodItem implements Parcelable {
         this.foodImage = foodImage;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public double getFoodPrice() {
 
         return foodPrice;
@@ -92,5 +102,6 @@ public class FoodItem implements Parcelable {
         parcel.writeInt(foodImage);
         parcel.writeDouble(foodPrice);
         parcel.writeString(foodDesc);
+        parcel.writeString(type);
     }
 }

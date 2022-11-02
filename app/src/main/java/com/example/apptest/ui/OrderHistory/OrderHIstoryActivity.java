@@ -90,7 +90,7 @@ public class OrderHIstoryActivity extends AppCompatActivity implements CartAdapt
                 String dateHolder = cursor.getString(7);
                 String[] s = dateParser(dateHolder);
                 String odate = "Order Date:" + s[0] + " At: " + s[2];
-                FoodItem f = new FoodItem(fname, fresname, fimg, fprice, fquant);
+                FoodItem f = new FoodItem(fname, fresname, fimg, fprice, fquant,"type");
                 if (OrderDetails.containsKey(orderid)) {
                     ArrayList<FoodItem> foodItems = OrderDetails.get(cursor.getString(1));
                     foodItems.add(f);

@@ -3,7 +3,7 @@ package com.example.apptest.utils.model;
 public class OrderItem extends FoodItem{
     private String date;
     public OrderItem(String foodName, String foodBrandName, int foodImage, double foodPrice, String foodDesc,String date) {
-        super(foodName, foodBrandName, foodImage, foodPrice, foodDesc);
+        super(foodName, foodBrandName, foodImage, foodPrice, foodDesc,"type");
         this.date=date;
     }
     public String getDate() {

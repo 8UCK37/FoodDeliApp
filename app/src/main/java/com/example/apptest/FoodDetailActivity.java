@@ -59,7 +59,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         String org=intent.getStringExtra("origin");
         int img=intent.getIntExtra("food_image", R.drawable.biriyani);
 
-        food = new FoodItem(name,org,img,price,desc);
+        food = new FoodItem(name,org,img,price,desc,"type");
         if (food != null) {
             food.setFoodImage(img);
             food.setFoodName(name);
