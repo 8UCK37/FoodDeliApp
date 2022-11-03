@@ -32,6 +32,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
     public static Double cartTotal;
     private ImageView back;
     private static int count=0;
+    static int dltC=0;
     static DbHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
 
     @Override
     public void onDeleteClicked(FoodCart foodCart) {
+        dltC++;
         cartViewModel.deleteCartItem(foodCart);
     }
 

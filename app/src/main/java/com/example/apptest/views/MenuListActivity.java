@@ -81,7 +81,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         });
         itemCount=findViewById(R.id.cartCount);
         count=getCountData();
-        itemCount.setText(String.valueOf(count));
+        itemCount.setText(String.valueOf(count-CartActivity.dltC));
         favImgView=findViewById(R.id.favtap);
         favImgView.setOnClickListener(new View.OnClickListener() {
             @Override

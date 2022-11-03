@@ -264,7 +264,7 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
 
         try {
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,PaymentActivity.this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,5,PaymentActivity.this);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -274,7 +274,7 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        //Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
         try {
             Geocoder geocoder = new Geocoder(PaymentActivity.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
