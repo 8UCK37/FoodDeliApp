@@ -36,7 +36,7 @@ public class AddingNewAddActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddingNewAddActivity.this, AddSettingsActivity.class));
+                onBackPressed();
             }
         });
 

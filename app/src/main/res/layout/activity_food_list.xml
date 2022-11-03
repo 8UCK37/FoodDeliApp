@@ -67,7 +67,7 @@
                     android:hint="12"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="@color/zomatoRed"
+                    android:textColor="@color/whatsapp_teal"
                     app:layout_constraintStart_toStartOf="@id/cartIv"
                     android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/cartIv"
