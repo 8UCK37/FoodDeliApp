@@ -40,7 +40,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
     private List<FoodCart> foodCartList;
     private TextView itemCount;
     private CoordinatorLayout coordinatorLayout;
-    private static int count=0;
+    private static int count;
     private ImageView cartImageView,favImgView,backtap;
     private SearchView searchView;
     DbHelper db;
@@ -79,9 +79,13 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                 startActivity(new Intent(MenuListActivity.this, CartActivity.class));
             }
         });
+
         itemCount=findViewById(R.id.cartCount);
+
         count=getCountData();
-        itemCount.setText(String.valueOf(count-CartActivity.dltC));
+        itemCount.setText(String.valueOf(count));
+
+
         favImgView=findViewById(R.id.favtap);
         favImgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +102,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
             }
         });
 
-        itemCount.setText(String.valueOf(count));
+
     }
     private void setUpList() {
         for(int i = 1; i<= DashNavActivity.foodNo; i++) {
@@ -244,14 +248,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
                     }
                 }).show();
     }
-    public void setCount(int i)  {
-        Boolean checkUp=db.updateCount(DashNavActivity.userEmail,i);
-        if(!checkUp){
-            Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
 
-        }
-
-    }
     private int getCountData() {
         Cursor cursor = db.getCountdata(DashNavActivity.userEmail);
 
@@ -260,5 +257,12 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         }
         return count;
     }
+    public void setCount(int i)  {
+        Boolean checkUp=db.updateCount(DashNavActivity.userEmail,i);
+        if(!checkUp){
+            Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
 
+        }
+
+    }
 }

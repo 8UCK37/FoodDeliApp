@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
 
     // Database Name
     private static final String DATABASE_NAME = "UserAccDetails";
@@ -297,13 +297,29 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     public boolean updateCount(String email,int count){
         SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor=DB.rawQuery("Select * from UserDetails where email = ?", new String[]{email});
+        if(cursor.getCount()==0){
         ContentValues contentValues = new ContentValues();
+        contentValues.put("email", email);
         contentValues.put("count", count);
-        long result = DB.update("UserDetails",contentValues,"email=?", new String[]{email});
+        long result = DB.insert("UserDetails",null,contentValues);
         if(result==-1){
             return false;
         }else{
             return true;
+        }
+        }else if(cursor.getCount()>0){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("count",count);
+
+            long result = DB.update("UserDetails",contentValues,"email=?", new String[]{email});
+            if(result==-1){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
         }
     }
     public Cursor getCountdata(String id)

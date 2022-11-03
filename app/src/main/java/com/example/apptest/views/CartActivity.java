@@ -32,7 +32,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
     public static Double cartTotal;
     private ImageView back;
     private static int count=0;
-    static int dltC=0;
     static DbHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
 
         initializeVariables();
         db=new DbHelper(this);
+
         back= findViewById(R.id.backtap);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +95,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
 
     @Override
     public void onDeleteClicked(FoodCart foodCart) {
-        dltC++;
         cartViewModel.deleteCartItem(foodCart);
     }
 
