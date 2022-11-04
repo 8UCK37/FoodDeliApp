@@ -39,7 +39,12 @@ import com.example.apptest.utils.model.FoodCart;
 import com.example.apptest.viewmodel.CartViewModel;
 import com.example.apptest.views.CartActivity;
 import com.example.apptest.views.MenuListActivity;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,7 +55,7 @@ import java.util.Random;
 import java.util.UUID;
 
 
-public class PaymentActivity extends AppCompatActivity implements LocationListener {
+public class PaymentActivity extends AppCompatActivity  {
     private CartViewModel cartViewModel;
     private ImageView backtap,gps;
     private CheckBox check;
@@ -59,7 +64,7 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
     public static ArrayList<FoodCart> order;
     public static String OrderPackage,randTime;
     private int checked;
-    LocationManager locationManager;
+    FusedLocationProviderClient fusedLocationProviderClient;
     RadioGroup radioGroup;
     DbHelper db;
     @Override
@@ -202,18 +207,20 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
 
         gps=findViewById(R.id.findLoc);
         gpsLocShow =findViewById(R.id.gps_location);
-        if (ContextCompat.checkSelfPermission(PaymentActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(PaymentActivity.this,new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            },100);
-        }
+
+        fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(this);
         gpsLocShow.setText("Press on the button to get your location automatically");
         gps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Finding your location please wait",Toast.LENGTH_SHORT).show();
-                //getLocation();
+                if(ActivityCompat.checkSelfPermission(PaymentActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                    getLocation();
+                }else{
+                    ActivityCompat.requestPermissions(PaymentActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
+
+                }
+
 
             }
         });
@@ -262,45 +269,22 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
     }
     @SuppressLint("MissingPermission")
     private void getLocation() {
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if(location!=null){
 
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,5,PaymentActivity.this);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        try {
-            Geocoder geocoder = new Geocoder(PaymentActivity.this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            String address = addresses.get(0).getAddressLine(0);
-
-            gpsLocShow.setText(address);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
+                    try {
+                        Geocoder geocoder= new Geocoder(PaymentActivity.this,Locale.getDefault());
+                        List<Address> adresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                        gpsLocShow.setText(adresses.get(0).getAddressLine(0)+" ,"+adresses.get(0).getLocality());
+                        add_flag="present";
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }
