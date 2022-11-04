@@ -70,7 +70,7 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
         order=new ArrayList<FoodCart>();
         order_placed_flag="";
         upi_id_show=findViewById(R.id.UPI_id);
-        if(getUPIData()==""){
+        if(getUPIData()==""|| getUPIData().equals("null")){
             upi_flag="notPresent";
             upi_id_show.setText("To set up your UPI ID and Phone no click here");
             upi_id_show.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
         }
 
         address_show=findViewById(R.id.Address);
-        if(getAddData()==""){
+        if(getAddData()==""||getAddData().equals("null")){
             add_flag="notPresent";
             address_show.setText("To set up your preferred delivery address click here");
             address_show.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +213,8 @@ public class PaymentActivity extends AppCompatActivity implements LocationListen
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Finding your location please wait",Toast.LENGTH_SHORT).show();
-                getLocation();
+                //getLocation();
+
             }
         });
     }
