@@ -283,7 +283,10 @@ public class PaymentActivity extends AppCompatActivity  {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }else if(location==null){
+                    gpsLocShow.setText("Please make sure your gps is turned on and Google Maps can find your location!!\nMaybe Open Maps to make sure:-(");
                 }
+
             }
         });
     }
