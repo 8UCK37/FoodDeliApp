@@ -36,7 +36,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         });
         name.setText(DashNavActivity.userName);
         email.setText(DashNavActivity.userEmail);
-        if(getUPIData()==""){
+        if(getUPIData()==""|| getUPIData().equals("null")){
             upi.setText("To set up your UPI ID click here");
             upi.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,7 +51,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         }
 
 
-        if(getAddData()==""){
+        if(getAddData()==""||getAddData().equals("null")){
 
             address.setText("To set up your preferred delivery address click here");
             address.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
 
             address.setText(getAddData());
         }
-        if(getPhnData()==""){
+        if(getPhnData()==""||getPhnData().equals("null")){
 
             phone.setText("To set up your phone no click here");
             phone.setOnClickListener(new View.OnClickListener() {
