@@ -55,7 +55,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="32dp"
-                    android:src="@drawable/ic_food_cart"
+                    android:src="@drawable/cart2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -64,14 +64,13 @@
                     android:id="@+id/cartCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="12"
+                    android:hint="8"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/whatsapp_teal"
                     app:layout_constraintStart_toStartOf="@id/cartIv"
-                    android:layout_marginStart="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/cartIv"
-                    android:layout_marginBottom="7dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="@id/cartIv">
 
                 </TextView>
