@@ -69,7 +69,10 @@ public class UpiActivity extends AppCompatActivity {
 
                 if(upi.equals("") && phn.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave empty fields",Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(phn.length()!=10){
+                    phnEdit.setError("Phone no must be 10 digit");
+                }
+                else{
                     Boolean checkUpi=db.updateUpiData(DashNavActivity.userEmail,upi,phn);
                     if(checkUpi){
                         Toast.makeText(getApplicationContext(), "New details added", Toast.LENGTH_SHORT).show();
@@ -78,7 +81,7 @@ public class UpiActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
                     }
                 }
-                finish(); startActivity(getIntent());//refreshes the activity leaving nothing behind
+                //finish(); startActivity(getIntent());//refreshes the activity leaving nothing behind
 
             }
         });

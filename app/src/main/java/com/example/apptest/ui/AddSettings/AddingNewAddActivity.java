@@ -52,7 +52,10 @@ public class AddingNewAddActivity extends AppCompatActivity {
                 sstate=state.getText().toString();
                 if(shouseno.equals("")|| slocality.equals("") || sarea.equals("") || scity.equals("")||spincode.equals("") || sstate.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave an empty field",Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(spincode.length()<6){
+                    pincode.setError("Pincode must be 6 digits");
+                }
+                else{
                     String compiledAddress=shouseno+" "+slocality+" "+sarea+" "+scity+" "+spincode+" "+sstate;
                     Boolean checkAddUpdate= db.updateAddData(DashNavActivity.userEmail,compiledAddress);
                     if(checkAddUpdate){
