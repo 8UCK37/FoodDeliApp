@@ -118,11 +118,9 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartC
         }
 
     }
-    public void setCount(int i)  {
+    public static void setCount(int i)  {
         Boolean checkUp=db.updateCount(DashNavActivity.userEmail,i);
         if(!checkUp){
-            Toast.makeText(getApplicationContext(), "Failed to Add UPI Id", Toast.LENGTH_SHORT).show();
-
         }
 
     }

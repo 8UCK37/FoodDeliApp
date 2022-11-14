@@ -148,7 +148,7 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
             }
 
         });
-        itemCount.setText(String.valueOf(String.valueOf(getCountData())));
+        itemCount.setText(String.valueOf(getCountData()));
     }
 
 
@@ -265,4 +265,5 @@ public class MenuListActivity extends AppCompatActivity implements FoodItemAdapt
         }
 
     }
+
 }

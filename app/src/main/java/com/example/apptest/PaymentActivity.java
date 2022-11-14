@@ -125,6 +125,7 @@ public class PaymentActivity extends AppCompatActivity  {
                 }else{
                 if((check.isChecked() && upi_flag.equals("present") && add_flag.equals("present"))||(check.isChecked() && upi_flag.equals("present") && addressChkFlag.equals("new"))){
                     CartActivity.cartViewModel.deleteAllCartItems();
+                    CartActivity.setCount(0);
                     OrderPackage = String.valueOf(order);
                     String orderid = UUID.randomUUID().toString();
                     String dateTime="";

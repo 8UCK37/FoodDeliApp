@@ -143,7 +143,7 @@ public class DashNavActivity extends AppCompatActivity {
                 startActivity(new Intent(DashNavActivity.this, MenuListActivity.class));
             }
         });
-        setupListByType();
+        //setupListByType();
 
     }
 
