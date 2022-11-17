@@ -15,7 +15,7 @@ import com.example.apptest.DashNavActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.views.CartActivity;
-import com.example.apptest.views.MenuListActivity;
+
 
 public class UpiActivity extends AppCompatActivity {
     private EditText upiEdit,phnEdit;

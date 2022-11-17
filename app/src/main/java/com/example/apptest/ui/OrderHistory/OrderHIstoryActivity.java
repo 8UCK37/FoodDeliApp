@@ -101,10 +101,7 @@ public class OrderHIstoryActivity extends AppCompatActivity implements CartAdapt
                     orderUid.add(orderid);
                     date.add(odate);
                 }
-
             }
-
-
         return;
         }
     }
