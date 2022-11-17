@@ -72,8 +72,8 @@ public class AddingNewAddActivity extends AppCompatActivity {
                     state.setError("State name can't be 1 letter");
                 }
                 else{
-                    String compiledAddress=shouseno+" "+slocality+" "+sarea+" "+scity+" "+spincode+" "+sstate;
-                    Boolean checkAddUpdate= db.updateAddData(DashNavActivity.userEmail,compiledAddress);
+                    String compiledAddress = shouseno+" "+slocality+" "+sarea+" "+scity+" "+spincode+" "+sstate;
+                    Boolean checkAddUpdate = db.updateAddData(DashNavActivity.userEmail,compiledAddress);
                     if(checkAddUpdate){
                         Toast.makeText(getApplicationContext(), "Address Updated", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddingNewAddActivity.this,AddSettingsActivity.class));

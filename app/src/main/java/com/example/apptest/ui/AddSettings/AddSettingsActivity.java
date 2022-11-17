@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.apptest.DashNavActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;

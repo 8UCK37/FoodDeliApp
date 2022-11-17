@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this,gso);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
-            naviagateToMainActivity();
+            navigateToDashNavActivity();
         }
 
         GoogleSignin.setOnClickListener(new View.OnClickListener() {
@@ -51,13 +50,13 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);
-                naviagateToMainActivity();
+                navigateToDashNavActivity();
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(),"something went wrong",Toast.LENGTH_SHORT).show();
             }
         }
     }
-    private void naviagateToMainActivity() {
+    private void navigateToDashNavActivity() {
         finish();
         Intent intent = new Intent(LoginActivity.this,DashNavActivity.class);
         startActivity(intent);
