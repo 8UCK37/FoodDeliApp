@@ -52,8 +52,24 @@ public class AddingNewAddActivity extends AppCompatActivity {
                 sstate=state.getText().toString();
                 if(shouseno.equals("")|| slocality.equals("") || sarea.equals("") || scity.equals("")||spincode.equals("") || sstate.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave an empty field",Toast.LENGTH_SHORT).show();
-                }else if(spincode.length()<6){
+                }
+                else if(spincode.length()<6){
                     pincode.setError("Pincode must be 6 digits");
+                }
+                else if (shouseno.length()<1){
+                    houseno.setError("House number can't be empty");
+                }
+                else if (slocality.length()<2){
+                    locality.setError("Locality can't be 1 letter");
+                }
+                else if (sarea.length()<2){
+                    area.setError("Area name can't be 1 letter");
+                }
+                else if (scity.length()<2){
+                    city.setError("City name can't be 1 letter");
+                }
+                else if (sstate.length()<2){
+                    state.setError("State name can't be 1 letter");
                 }
                 else{
                     String compiledAddress=shouseno+" "+slocality+" "+sarea+" "+scity+" "+spincode+" "+sstate;

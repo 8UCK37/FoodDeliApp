@@ -69,6 +69,9 @@ public class UpiActivity extends AppCompatActivity {
 
                 if(upi.equals("") && phn.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave empty fields",Toast.LENGTH_SHORT).show();
+                }
+                else if (upiEdit.length()<2){
+                    upiEdit.setError("UPI Id can't be 1 letter");
                 }else if(phn.length()!=10){
                     phnEdit.setError("Phone no must be 10 digit");
                 }
