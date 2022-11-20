@@ -30,5 +30,4 @@ public interface CartDAO {
 
     @Query("DELETE FROM food_table")
     void deleteAllItems();
-
 }
