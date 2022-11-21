@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 12;
 
     // Database Name
     private static final String DATABASE_NAME = "UserAccDetails";
@@ -22,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table Userfavs(email TXT ,foodname TXT primary key,resName TXT, img int, price TXT,description TXT )");
+        db.execSQL("create Table Userfavs(email TXT ,foodname TXT ,resName TXT, img int, price TXT,description TXT )");
         db.execSQL("create Table UserDetails(email TXT primary key ,address TXT,upiId TXT,phn TXT,count int )");
         db.execSQL("create Table FoodItems(id TXT primary key,foodname TXT ,resName TXT, img int, price TXT,description TXT,type TXT )");
         db.execSQL("create Table OrderHis(email TXT ,orderid TXT ,foodName TXT,resName TXT, img int, price TXT,quantity TXT,time TXT )");
@@ -57,12 +57,12 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean deleteFavdata(String fname)
+    public Boolean deleteFavdata(String fname,String email)
     {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from Userfavs where foodname = ?", new String[]{fname});
+        Cursor cursor = DB.rawQuery("Select * from Userfavs where foodname = ? and email=?", new String[]{fname,email});
         if (cursor.getCount() > 0) {
-            long result = DB.delete("Userfavs", "foodname=?", new String[]{fname});
+            long result = DB.delete("Userfavs", "foodname=? and email=?", new String[]{fname,email});
             if (result == -1) {
                 return false;
             } else {

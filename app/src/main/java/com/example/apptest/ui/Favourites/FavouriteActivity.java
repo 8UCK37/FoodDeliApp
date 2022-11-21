@@ -140,7 +140,7 @@ public class FavouriteActivity extends AppCompatActivity implements FoodItemAdap
     public void onFavBtnClicked(FoodItem foodItem) {
 
         String foodNameTXT = foodItem.getFoodName();
-        Boolean checkFavDeleteData = db.deleteFavdata(foodNameTXT);
+        Boolean checkFavDeleteData = db.deleteFavdata(foodNameTXT,DashNavActivity.userEmail);
         if(checkFavDeleteData) {
             Toast.makeText(getApplicationContext(), "Removed from Favourites", Toast.LENGTH_SHORT).show();
             finish(); startActivity(getIntent());//refreshes the activity leaving nothing behind
