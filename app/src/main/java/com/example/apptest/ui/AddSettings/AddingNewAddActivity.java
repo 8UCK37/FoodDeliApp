@@ -14,18 +14,23 @@ import com.example.apptest.DashNavActivity;
 import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AddingNewAddActivity extends AppCompatActivity {
     private EditText houseno,locality,area,city,pincode,state;
     private TextView updateAdd;
     private ImageView back;
     private String shouseno,slocality,sarea,scity,spincode,sstate;
     DbHelper db;
+    Pattern regex = Pattern.compile("[^\\w\\/,.]");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_new_add);
         db=new DbHelper(this);
         houseno=findViewById(R.id.upiIdEnter);
+
         locality=findViewById(R.id.locality);
         area=findViewById(R.id.area);
         city=findViewById(R.id.city);
@@ -45,31 +50,51 @@ public class AddingNewAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 shouseno=houseno.getText().toString();
+                Matcher housenomtchr = regex.matcher(shouseno);
                 slocality=locality.getText().toString();
+                Matcher localitymtchr = regex.matcher(slocality);
                 sarea=area.getText().toString();
+                Matcher areamtchr = regex.matcher(sarea);
                 scity=city.getText().toString();
+                Matcher citymtchr = regex.matcher(scity);
                 spincode=pincode.getText().toString();
                 sstate=state.getText().toString();
+                Matcher statemtchr = regex.matcher(sstate);
                 if(shouseno.equals("")|| slocality.equals("") || sarea.equals("") || scity.equals("")||spincode.equals("") || sstate.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave an empty field",Toast.LENGTH_SHORT).show();
-                }
-                else if(spincode.length()<6){
-                    pincode.setError("Pincode must be 6 digits");
                 }
                 else if (shouseno.length()<1){
                     houseno.setError("House number can't be empty");
                 }
+                else if(housenomtchr.find()) {
+                    houseno.setError("House number can't contain any special characters other than /");
+                }
                 else if (slocality.length()<2){
                     locality.setError("Locality can't be 1 letter");
+                }
+                else if(localitymtchr.find()) {
+                    locality.setError("Locality can't contain any special characters other than / , .");
                 }
                 else if (sarea.length()<2){
                     area.setError("Area name can't be 1 letter");
                 }
+                else if(areamtchr.find()) {
+                    area.setError("Area can't contain any special characters other than / , .");
+                }
                 else if (scity.length()<2){
                     city.setError("City name can't be 1 letter");
                 }
+                else if(citymtchr.find()) {
+                    city.setError("Name of the city can't contain any special characters other than / , .");
+                }
                 else if (sstate.length()<2){
                     state.setError("State name can't be 1 letter");
+                }
+                else if(statemtchr.find()) {
+                    state.setError("Name of the state can't contain any special characters other than / , .");
+                }
+                else if(spincode.length()<6){
+                    pincode.setError("Pincode must be 6 digits");
                 }
                 else{
                     String compiledAddress = shouseno+" "+slocality+" "+sarea+" "+scity+" "+spincode+" "+sstate;
