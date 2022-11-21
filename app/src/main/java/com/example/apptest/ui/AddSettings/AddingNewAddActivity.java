@@ -23,7 +23,7 @@ public class AddingNewAddActivity extends AppCompatActivity {
     private ImageView back;
     private String shouseno,slocality,sarea,scity,spincode,sstate;
     DbHelper db;
-    Pattern regex = Pattern.compile("[^\\w\\/,.]");
+    Pattern regex = Pattern.compile("[^\\w\\/,. ]");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
