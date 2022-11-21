@@ -16,6 +16,9 @@ import com.example.apptest.R;
 import com.example.apptest.database.DbHelper;
 import com.example.apptest.views.CartActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class UpiActivity extends AppCompatActivity {
     private EditText upiEdit,phnEdit;
@@ -23,6 +26,7 @@ public class UpiActivity extends AppCompatActivity {
     private ImageView back,cart, dltUpi,dltPhn;
     private String upi_placeholder,phn;
     DbHelper db;
+    Pattern regex = Pattern.compile("[^\\w\\@_.$&]");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,7 @@ public class UpiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String upi= upiEdit.getText().toString();
+                Matcher upimtchr = regex.matcher(upi);
                 String phn=phnEdit.getText().toString();
 
                 if(upi.equals("") && phn.equals("")){
@@ -72,7 +77,11 @@ public class UpiActivity extends AppCompatActivity {
                 }
                 else if (upiEdit.length()<2){
                     upiEdit.setError("UPI Id can't be 1 letter");
-                }else if(phn.length()!=10){
+                }
+                else if(upimtchr.find()) {
+                    upiEdit.setError("Upi id can't contain any special characters other than @ _ . $ &");
+                }
+                else if(phn.length()!=10){
                     phnEdit.setError("Phone no must be 10 digit");
                 }
                 else{
