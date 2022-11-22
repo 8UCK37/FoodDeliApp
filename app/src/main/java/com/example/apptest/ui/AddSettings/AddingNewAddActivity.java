@@ -3,8 +3,12 @@ package com.example.apptest.ui.AddSettings;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +27,12 @@ public class AddingNewAddActivity extends AppCompatActivity {
     private ImageView back;
     private String shouseno,slocality,sarea,scity,spincode,sstate;
     DbHelper db;
-    Pattern regex = Pattern.compile("[^\\w\\/,. ]");
+
+    String[] items =  {"Material","Design","Components","Android","5.0 Lollipop"};
+    AutoCompleteTextView autoCompleteTxt;
+    ArrayAdapter<String> adapterItems;
+    Pattern regex1 = Pattern.compile("[^\\w\\/,. ]");
+    Pattern regex2 = Pattern.compile("[^A-Za-z ]");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +54,34 @@ public class AddingNewAddActivity extends AppCompatActivity {
             }
         });
 
+        /*autoCompleteTxt = findViewById(R.id.auto_complete_txt);
+
+        adapterItems = new ArrayAdapter<String>(this,R.layout.list_item,items);
+        autoCompleteTxt.setAdapter(adapterItems);
+
+        autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(),"Item: "+item,Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
         updateAdd=findViewById(R.id.mod_address);
         updateAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 shouseno=houseno.getText().toString();
-                Matcher housenomtchr = regex.matcher(shouseno);
+                Matcher housenomtchr = regex1.matcher(shouseno);
                 slocality=locality.getText().toString();
-                Matcher localitymtchr = regex.matcher(slocality);
+                Matcher localitymtchr = regex1.matcher(slocality);
                 sarea=area.getText().toString();
-                Matcher areamtchr = regex.matcher(sarea);
+                Matcher areamtchr = regex2.matcher(sarea);
                 scity=city.getText().toString();
-                Matcher citymtchr = regex.matcher(scity);
+                Matcher citymtchr = regex2.matcher(scity);
                 spincode=pincode.getText().toString();
                 sstate=state.getText().toString();
-                Matcher statemtchr = regex.matcher(sstate);
+                Matcher statemtchr = regex2.matcher(sstate);
                 if(shouseno.equals("")|| slocality.equals("") || sarea.equals("") || scity.equals("")||spincode.equals("") || sstate.equals("")){
                     Toast.makeText(getApplicationContext(),"Please do not leave an empty field",Toast.LENGTH_SHORT).show();
                 }
@@ -79,19 +101,19 @@ public class AddingNewAddActivity extends AppCompatActivity {
                     area.setError("Area name can't be 1 letter");
                 }
                 else if(areamtchr.find()) {
-                    area.setError("Area can't contain any special characters other than / , .");
+                    area.setError("Area can't contain any special characters or numbers");
                 }
                 else if (scity.length()<2){
                     city.setError("City name can't be 1 letter");
                 }
                 else if(citymtchr.find()) {
-                    city.setError("Name of the city can't contain any special characters other than / , .");
+                    city.setError("Name of the city can't contain any special characters or numbers");
                 }
-                else if (sstate.length()<2){
+                else if (state.length()<2){
                     state.setError("State name can't be 1 letter");
                 }
                 else if(statemtchr.find()) {
-                    state.setError("Name of the state can't contain any special characters other than / , .");
+                    city.setError("Name of the state can't contain any special characters or numbers");
                 }
                 else if(spincode.length()<6){
                     pincode.setError("Pincode must be 6 digits");
