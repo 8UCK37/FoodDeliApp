@@ -3,12 +3,10 @@ package com.example.apptest.ui.AddSettings;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +26,7 @@ public class AddingNewAddActivity extends AppCompatActivity {
     private String shouseno,slocality,sarea,scity,spincode,sstate;
     DbHelper db;
 
-    String[] items =  {"Material","Design","Components","Android","5.0 Lollipop"};
-    AutoCompleteTextView autoCompleteTxt;
-    ArrayAdapter<String> adapterItems;
+
     Pattern regex1 = Pattern.compile("[^\\w\\/,. ]");
     Pattern regex2 = Pattern.compile("[^A-Za-z ]");
     @Override
@@ -38,8 +34,8 @@ public class AddingNewAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_new_add);
         db=new DbHelper(this);
-        houseno=findViewById(R.id.upiIdEnter);
 
+        houseno=findViewById(R.id.upiIdEnter);
         locality=findViewById(R.id.locality);
         area=findViewById(R.id.area);
         city=findViewById(R.id.city);
@@ -54,18 +50,7 @@ public class AddingNewAddActivity extends AppCompatActivity {
             }
         });
 
-        /*autoCompleteTxt = findViewById(R.id.auto_complete_txt);
 
-        adapterItems = new ArrayAdapter<String>(this,R.layout.list_item,items);
-        autoCompleteTxt.setAdapter(adapterItems);
-
-        autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: "+item,Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         updateAdd=findViewById(R.id.mod_address);
         updateAdd.setOnClickListener(new View.OnClickListener() {

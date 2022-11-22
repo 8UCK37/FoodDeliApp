@@ -19,6 +19,7 @@ public class AddSettingsActivity extends AppCompatActivity {
     private  TextView add,add_add;
     private String addstring="We don't have your address yet!!";
     DbHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
