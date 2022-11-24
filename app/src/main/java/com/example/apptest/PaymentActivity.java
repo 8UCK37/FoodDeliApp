@@ -123,7 +123,7 @@ public class PaymentActivity extends AppCompatActivity  {
                 if(order_placed_flag.equals("prevOrder")){
                     Toast.makeText(getApplicationContext(),"Are you sure you want to place the same order again?",Toast.LENGTH_SHORT).show();
                 }else{
-                if((check.isChecked() && upi_flag.equals("present") && add_flag.equals("present"))||(check.isChecked() && upi_flag.equals("present") && addressChkFlag.equals("new"))){
+                if(((check.isChecked() && upi_flag.equals("present") && add_flag.equals("present"))||(check.isChecked() && upi_flag.equals("present") && addressChkFlag.equals("new")))&& !addressChkFlag.equals("")){
                     CartActivity.cartViewModel.deleteAllCartItems();
                     CartActivity.setCount(0);
                     OrderPackage = String.valueOf(order);
