@@ -160,6 +160,8 @@ public class PaymentActivity extends AppCompatActivity  {
                     Toast.makeText(getApplicationContext(),"Please Add your UPI Id before proceeding",Toast.LENGTH_SHORT).show();
                 }else if(add_flag.equals("notPresent")){
                     Toast.makeText(getApplicationContext(),"Please Add address Id before proceeding",Toast.LENGTH_SHORT).show();
+                }else if(addressChkFlag.equals("")){
+                    Toast.makeText(getApplicationContext(),"Please select at least one of the address options",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Please Confirm order details by checking the box",Toast.LENGTH_SHORT).show();
